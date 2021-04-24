@@ -95,22 +95,14 @@ end
 %% visualization
 profile off;
 figure(1)
+semilogy([2:2:2 * length(exec_time_fft_cpu)], exec_time_fft_cpu, '-o')
 hold on;
-semilogy([2:2:26], exec_time_fft_cpu, '-o')
-semilogy(exec_time_fft_gpu, '-x')
-legend('FFT on CPU', 'FFT on GPU')
+semilogy([2:2:2 * length(exec_time_fft_gpu)], exec_time_fft_gpu, '-x')
+semilogy([2:2:2 * length(exec_time_dft_def)], exec_time_dft_def, '-d')
+semilogy([2:2:2 * length(exec_time_dft_mat)], exec_time_dft_mat, '-s')
+legend('FFT on CPU', 'FFT on GPU', 'DFT by def', 'DFT by matmul')
 xlabel('Input scale')
 ylabel('Execution Time')
-title('O(nlogn) FFT')
-saveas(gcf, 'FFT.png')
-
-figure(2)
-hold on;
-semilogy([2:2:12], exec_time_dft_def, '-d')
-semilogy(exec_time_dft_mat, '-s')
-legend('DFT by definition', 'DFT by matrix')
-xlabel('Input scale')
 xlim([0 30])
-ylabel('Execution Time')
-title('O(n^2) DFT')
-saveas(gcf, 'DFT.png')
+saveas(gcf, 'result.png')
+saveas(gcf, 'result.eps', 'epsc')
